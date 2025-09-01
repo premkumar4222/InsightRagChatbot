@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ChatBot UI</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; }
+    #chatbox { border: 1px solid #ccc; padding: 1rem; height: 400px; overflow-y: auto; }
+    .message { margin: 0.5rem 0; }
+    .user { color: blue; }
+    .bot { color: green; }
+  </style>
+</head>
+<body>
+  <h2>LangGraph ChatBot</h2>
+  <div id="chatbox"></div>
+  <input type="text" id="input" placeholder="Type a message..." />
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("input");
+      const chatbox = document.getElementById("chatbox");
+      const userText = input.value;
+      if (!userText.trim()) return;
+
+      // Show user message
+      const userMsg = document.createElement("div");
+      userMsg.textContent = "You: " + userText;
+      userMsg.classList.add("message", "user");
+      chatbox.appendChild(userMsg);
+      chatbox.scrollTop = chatbox.scrollHeight;
+
+      input.value = "";
+
+      // Send to backend
+      const res = await fetch("http://localhost:8000/chatbot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: userText })
+      });
+
+      const data = await res.json();
+      const botMsg = document.createElement("div");
+      botMsg.textContent = "Bot: " + data.response;
+      botMsg.classList.add("message", "bot");
+      chatbox.appendChild(botMsg);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
