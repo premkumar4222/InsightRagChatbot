@@ -1,0 +1,10 @@
+pandas
+numpy
+openpyxl
+sqlalchemy
+langchain-google-genai
+langchain_community
+python-dotenv
+faiss-cpu
+pinecone
+tiktoken

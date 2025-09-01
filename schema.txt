@@ -1,0 +1,20 @@
+
+
+Example Queries
+Example Query 1: Get last 90 days billable headcount for Europe
+SELECT Date,Europe
+FROM accountWise_Billable
+WHERE Date >= CURRENT_Date- INTERVAL(90 90 days)
+ORDER BY Date.
+
+Example Query 2: Get future 90 days forecasted billable headcount for Americas1
+SELECT Date, America1
+FROM accountWise_Billable_forecasted
+WHERE Date >= CURRENT_Date + INTERVAL(90 90 days)
+ORDER BY Date.
+
+Example Query 3: compare last 30 days billable headcount for Europe and apmea
+SELECT Date, Europe, Apmea
+FROM accountWise_Billable  
+WHERE Date >= CURRENT_Date - INTERVAL('30 days')
+ORDER BY Date.
